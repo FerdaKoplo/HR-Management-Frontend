@@ -14,8 +14,8 @@ const GuestLayout: React.FC<Props> = ({ children }) => {
         <h1 className='font-bold text-4xl   text-blue-300'>Login</h1>
       </Link>
       <div className="relative w-full sm:max-w-md mt-6">
-        <div className="absolute top-7 left-12 w-full h-full opacity-15 bg-black rounded-lg"></div>
-        <div className="relative px-6 py-4 bg-white shadow-md sm:rounded-lg border border-black">
+        <div className="absolute top-7 left-12 w-full h-full opacity-15 bg-blue-500 rounded-lg"></div>
+        <div className="relative px-6 py-4 bg-white shadow-md sm:rounded-lg">
           <Toaster position="top-right" />
           {children}
         </div>

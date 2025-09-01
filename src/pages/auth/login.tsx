@@ -10,11 +10,12 @@ import { useMutation } from '@tanstack/react-query'
 import { LoginFormInputs, LoginResponse } from '@/interface/auth'
 import { login } from '@/service/auth.service'
 import GuestLayout from '@/layout/guest-layout'
+import { toast } from 'sonner'
 
 
 const Login = () => {
 
-    const { user, setAuth } = useAuth()
+    const { setAuth } = useAuth()
     const [form, setForm] = useState<LoginFormInputs>({
         email: '',
         password: '',
@@ -23,7 +24,6 @@ const Login = () => {
     const mutation = useMutation<LoginResponse, unknown, LoginFormInputs>({
         mutationFn: login,
         onSuccess: (data) => {
-            console.log("Login successful", data)
             if (data?.result?.token && data?.result?.user) {
                 setAuth({ token: data.result.token, user: data.result.user });
             }
@@ -42,7 +42,7 @@ const Login = () => {
         e.preventDefault()
         const parsed = loginSchema.safeParse(form)
         if (!parsed.success) {
-            console.error("Validation errors", parsed.error.format())
+            toast.error("Fill the form correctly")
             return
         }
         mutation.mutate(form)
@@ -55,7 +55,7 @@ const Login = () => {
                     <div className='space-y-2'>
                         <Label className='text-md'>Email</Label>
                         <Input
-                            className='focus:ring-0 focus:border-2 focus:border-blue-400'
+                            className="focus-visible:border-blue-400 focus-visible:border-2 focus-visible:ring-2 focus-visible:ring-blue-400 transition-all"
                             type='email'
                             name='email'
                             value={form.email}
@@ -65,14 +65,16 @@ const Login = () => {
 
                     <div className='space-y-2'>
                         <Label className='text-md'>Password</Label>
-                        <Input type='password'
+                        <Input 
+                            type='password'
+                            className='focus-visible:border-blue-400 focus-visible:border-2 focus-visible:ring-2 focus-visible:ring-blue-400 transition-all'
                             name='password'
                             value={form.password}
                             onChange={handleChange}
                         />
                     </div>
 
-                    <Button type='submit'>Login</Button>
+                    <Button type='submit' className='bg-gradient-to-br cursor-pointer from-blue-500 to-sky-300'>Login</Button>
                 </div>
             </form>
         </GuestLayout>
