@@ -1,4 +1,3 @@
-import { LoginFormInputs } from "@/interface/auth";
 import axios from "axios";
 
 export const api = axios.create({

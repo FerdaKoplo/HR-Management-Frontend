@@ -6,3 +6,7 @@ export const loginSchema = z.object({
   password: z.string().min(1, { message: "This field has to be filled." })
 })
 
+
+export const employeeSchema = z.object({
+  
+})

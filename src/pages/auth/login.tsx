@@ -11,15 +11,16 @@ import { LoginFormInputs, LoginResponse } from '@/interface/auth'
 import { login } from '@/service/auth.service'
 import GuestLayout from '@/layout/guest-layout'
 import { toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
-
     const { setAuth } = useAuth()
     const [form, setForm] = useState<LoginFormInputs>({
         email: '',
         password: '',
     })
+    const router = useNavigate()
 
     const mutation = useMutation<LoginResponse, unknown, LoginFormInputs>({
         mutationFn: login,
@@ -27,6 +28,7 @@ const Login = () => {
             if (data?.result?.token && data?.result?.user) {
                 setAuth({ token: data.result.token, user: data.result.user });
             }
+            router('/dashboard')
         },
         onError: (error) => {
             console.error("Login failed", error)
