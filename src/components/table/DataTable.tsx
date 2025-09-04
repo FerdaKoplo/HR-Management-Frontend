@@ -5,7 +5,8 @@ import { Pagination, PaginationNext, PaginationPrevious } from '@/components/ui/
 
 export interface Column<T> {
     header: string
-    accessor: keyof T
+    accessor?: keyof T
+    Cell?: (row: T) => React.ReactNode
 }
 
 interface DataTableProps<T> {
@@ -24,12 +25,12 @@ function DataTable<T extends { id: number | string }>({
     totalPages,
 }: DataTableProps<T>) {
     return (
-        <div className="overflow-x-auto w-full">
+        <div className="overflow-x-auto w-full rounded-lg">
             <Table className="w-full">
-                <TableHeader className='bg-gradient-to-t !text-white from-blue-500  to-blue-400'>
-                    <TableRow>
+                <TableHeader>
+                    <TableRow className='bg-gradient-to-t  from-blue-400  to-blue-300'>
                         {columns.map((col) => (
-                            <TableHead key={String(col.accessor)}>{col.header}</TableHead>
+                            <TableHead className='text-white' key={String(col.accessor)}>{col.header}</TableHead>
                         ))}
                     </TableRow>
                 </TableHeader>
@@ -37,8 +38,12 @@ function DataTable<T extends { id: number | string }>({
                     {data.map((row) => (
                         <TableRow key={row.id}>
                             {columns.map((col) => (
-                                <TableCell key={String(col.accessor)}>
-                                    {String(row[col.accessor])}
+                                <TableCell key={String(col.accessor ?? col.header)}>
+                                    {col.Cell
+                                        ? col.Cell(row)
+                                        : col.accessor
+                                            ? String(row[col.accessor])
+                                            : null}
                                 </TableCell>
                             ))}
                         </TableRow>
