@@ -5,7 +5,7 @@ import React from 'react'
 import { IoMdAnalytics } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import { BsFillPeopleFill } from "react-icons/bs";
+import { BsFillPeopleFill, BsTag } from "react-icons/bs";
 
 interface Props {
   header?: React.ReactNode
@@ -24,12 +24,12 @@ const AdminLayout: React.FC<Props> = ({ header, children, breadcrumbs }) => {
           <div className="max-w-7xl mx-auto py-6 sm:px-6">
             <div className='space-y-2'>
               {breadcrumbs && (
-                <Breadcrumb className='flex items-center gap-4'>
+                <Breadcrumb className='flex items-center gap-2'>
                   {breadcrumbs.map((crumb, index) => (
                     <React.Fragment key={index}>
                       <BreadcrumbItem>
                         {crumb.href ? (
-                          <a href={crumb.href} className="text-textSecondary">
+                          <a href={crumb.href} className="text-gray-400">
                             {crumb.name}
                           </a>
                         ) : (
@@ -68,6 +68,12 @@ const AdminLayout: React.FC<Props> = ({ header, children, breadcrumbs }) => {
             </div>
           </SidebarItem>
 
+          <SidebarItem path="/job-title" >
+            <div className='flex items-center gap-5'>
+              <BsTag size={20} />
+              <span>Job Title</span>
+            </div>
+          </SidebarItem>
 
           <SidebarItem path="/recruitment" >
             <div className='flex items-center gap-5'>

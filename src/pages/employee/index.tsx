@@ -9,7 +9,7 @@ const breadcrumbs = [
 ]
 
 
-const Index = () => {
+const EmployeeIndex = () => {
 
     const { renderAllEmployee } = useEmployee()
     const { data, isLoading, isError } = renderAllEmployee
@@ -23,7 +23,7 @@ const Index = () => {
                 </h1>
                 <Link to={'/employee/create'} >
                     <Button>
-                        + Create Employee
+                        + Add Employee
                     </Button>
                 </Link>
             </div>
@@ -33,4 +33,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default EmployeeIndex
